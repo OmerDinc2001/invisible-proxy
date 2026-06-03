@@ -1,0 +1,39 @@
+version: '3.8'
+
+networks:
+  proxy_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+
+services:
+  dns-server:
+    image: ubuntu/bind9:latest
+    container_name: dns_server_container
+    environment:
+      - BIND9_USER=root
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    volumes:
+      - ./named_conf/named.conf:/etc/bind/named.conf
+      - ./named_conf/db.catchall:/etc/bind/db.catchall
+    networks:
+      proxy_net:
+        ipv4_address: 10.5.0.2
+
+  transparent-proxy:
+    build: .
+    container_name: proxy_engine_container
+    privileged: true # Gives the container network administrative clearance to invoke iptables rules
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "8888:8888" # Transparent Proxy Worker Sockets
+      - "8080:8080" # Web Dashboard UI Interface Control Panel
+    networks:
+      proxy_net:
+        ipv4_address: 10.5.0.3
+    depends_on:
+      - dns-server

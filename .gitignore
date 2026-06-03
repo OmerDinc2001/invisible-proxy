@@ -1,0 +1,13 @@
+# Ignore Java compiled binaries
+*.class
+
+# Ignore your Proxy Engine's disk cache storage directory
+proxy_cache/
+
+# Ignore IntelliJ IDEA metadata settings
+.idea/
+*.iml
+out/
+
+# Ignore OS files
+.DS_Store

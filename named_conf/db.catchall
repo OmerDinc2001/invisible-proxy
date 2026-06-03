@@ -1,0 +1,10 @@
+$TTL    604800
+@       IN      SOA     localhost. root.localhost. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      localhost.
+* IN      A       10.5.0.3   ; <--- Points all global traffic directly to the Transparent Proxy Container IP

@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jre-slim
+FROM eclipse-temurin:17-jdk-alpine
 
 # Install system network route management utilities for transparent interception redirection
 RUN apt-get update && apt-get install -y iptables iproute2 procps curl && rm -rf /var/lib/apt/lists/*

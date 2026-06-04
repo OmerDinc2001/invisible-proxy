@@ -14,7 +14,4 @@ RUN javac ControlServer.java ProxyEngine.java ConnectionHandler.java HttpProcess
 # Expose both backend interception pipelines and dashboard interfaces
 EXPOSE 8888 8080
 
-# Execute internal firewall redirection routing rules right before launching Java binary runtime engine
-CMD iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8888 && \
-    iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8888 && \
-    java ControlServer
+CMD ["java", "ControlServer"]

@@ -42,6 +42,12 @@ public class ControlServer {
         System.out.println("[INIT] GUI Control Server successfully launched!");
         System.out.println("[INIT] Open Chromium and go to: http://localhost:" + port);
         System.out.println("=================================================");
+
+        this.proxyEngine = new ProxyEngine(8888);
+        this.proxyThread = new Thread(this.proxyEngine);
+        this.proxyThread.start();
+        this.isProxyRunning = true;
+        System.out.println("[INIT] Transparent Proxy Engine auto-started on port 8888");
     }
 
     // --- HTML GUI GENERATOR (WITH START, STOP, REPORT, & HELP BUTTONS) ---
